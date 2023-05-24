@@ -1,0 +1,6 @@
+﻿namespace RockExplorer_Reforged.Data
+{
+    public class placeholder
+    {
+    }
+}
