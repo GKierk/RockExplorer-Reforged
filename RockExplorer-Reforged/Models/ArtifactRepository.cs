@@ -9,6 +9,11 @@ namespace RockExplorer_Reforged.Models
 
         private string filePath = @"Data/JsonArtifacts.json";
 
+        public ArtifactRepository()
+        {
+            Artifacts = ReadAll();
+        }
+
         public Dictionary<int, Artifact>? Artifacts { get; set; }
 
         public int key { get; set; }
@@ -28,9 +33,12 @@ namespace RockExplorer_Reforged.Models
 
         public void Create(Artifact entity)
         {
-            int dictionarySize = ReadAll().Count();
 
-            Artifacts.Add(++dictionarySize, entity);
+            ArtifactRepository repo = Instance;
+            int dictionarySize = ReadAll().Count();
+            dictionarySize++;
+
+            repo.Artifacts.Add(dictionarySize, entity);
             JsonFileHandler.WriteToJson(filePath);
         }
 
