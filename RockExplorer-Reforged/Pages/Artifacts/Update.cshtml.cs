@@ -6,34 +6,29 @@ namespace RockExplorer_Reforged.Pages.Artifacts
 {
     public class UpdateModel : PageModel
     {
-        public class Update : PageModel
+        private ArtifactRepository repo;
+
+        public UpdateModel()
         {
-            private ArtifactRepository repo;
+            repo = ArtifactRepository.Instance;
+        }
 
-            public Update()
+        [BindProperty]
+        public Artifact? artifact { get; set; }
+
+        public void OnGet(int key)
+        {
+            repo.key = key;
+            artifact = repo.Read(key);
+        }
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
             {
-                repo = ArtifactRepository.Instance;
-            }
-
-            [BindProperty]
-            public Artifact? artifact { get; set; }
-
-            public IActionResult OnGet(int key)
-            {
-                repo.key = key;
-                artifact = repo.Read(key);
                 return Page();
             }
-
-            public IActionResult OnPost()
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Page();
-                }
-                repo.Update(repo.key, artifact);
-                return RedirectToPage("Read");
-            }
+            repo.Update(repo.key, artifact);
+            return RedirectToPage("Read");
         }
     }
 }
