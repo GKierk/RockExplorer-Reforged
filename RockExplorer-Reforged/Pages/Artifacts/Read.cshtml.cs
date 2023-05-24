@@ -4,11 +4,11 @@ using RockExplorer_Reforged.Models;
 
 namespace RockExplorer_Reforged.Pages.Artifacts
 {
-    public class IndexModel : PageModel
+    public class ReadModel : PageModel
     {
         private ArtifactRepository? repo;
         
-        public IndexModel()
+        public ReadModel()
         {
             repo = ArtifactRepository.Instance;
         }
