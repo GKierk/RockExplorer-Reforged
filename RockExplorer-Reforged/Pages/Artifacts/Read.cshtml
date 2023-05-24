@@ -1,0 +1,56 @@
+﻿@page
+@model RockExplorer_Reforged.Pages.Artifacts.IndexModel
+@{
+    ViewData["Title"] = "Read";
+}
+
+<div>
+    <h1>Artifacts</h1>
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Create new Artifact</a>
+    </p>
+
+    <form method="get">
+        <div class="form-group">
+            <label for="filterInput">Search:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="filterInput" asp-for="FilterCriteria" />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Year of Creation</th>
+                <th>Artist</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Artifacts)
+            {
+                <tr>
+                    <td>@item.Key</td>
+                    <td>@item.Value.Name</td>
+                    <td>@item.Value.Description</td>
+                    <td>@item.Value.YearOfCreation</td>
+                    <td>@item.Value.Artist</td>
+                    <td>
+                        <img src="~/Images/@item.Value.PathToImageFile" width="60" height="70" alt="Image">
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a asp-page="Update" asp-route-id="@item.Key" class="btn btn-primary">Edit</a>
+                            <a asp-page="Delete" asp-route-id="@item.Key" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>"
