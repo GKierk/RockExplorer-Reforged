@@ -20,9 +20,12 @@ namespace RockExplorer_Reforged.Pages.Artifacts
             return Page();
         }
 
-        public IActionResult OnPost(int key)
+        public IActionResult OnPost(int? key)
         {
-            repo.Delete(key);
+            if (key != null)
+            {
+                repo.Delete((int)key);
+            }
             return RedirectToPage("Read");
         }
     }
