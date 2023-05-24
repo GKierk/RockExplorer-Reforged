@@ -23,7 +23,7 @@ namespace RockExplorer_Reforged.Pages.Artifacts
         public IActionResult OnPost(int key)
         {
             repo.Delete(key);
-            return RedirectToPage("Index");
+            return RedirectToPage("Read");
         }
     }
 }

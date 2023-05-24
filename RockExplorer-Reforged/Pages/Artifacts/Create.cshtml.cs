@@ -30,7 +30,7 @@ namespace RockExplorer_Reforged.Pages.Artifacts
             }
 
             repo.Create(Artifact);
-            return RedirectToPage("Index");
+            return RedirectToPage("Read");
         }
     }
 }
