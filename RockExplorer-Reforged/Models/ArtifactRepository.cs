@@ -73,28 +73,28 @@ namespace RockExplorer_Reforged.Models
         {
             ArtifactRepository repo = Instance;
             Dictionary<int, Artifact> tempDictionary = new Dictionary<int, Artifact>();
-            int currentKeyNumber = 1;
+            int keyValue;
+            bool keyFound = false;
 
             foreach (var kvp in repo.Artifacts)
             {
 
-                if (currentKeyNumber <= repo.Artifacts.Count + 1)
+                if (kvp.Key != key && keyFound == false)
                 {
-                    if (currentKeyNumber != key)
-                    {
-                        tempDictionary.Add(currentKeyNumber, repo.Artifacts[kvp.Key]);
-                    }
-                    else
-                    {
-                        currentKeyNumber--;
-                        repo.Artifacts.Remove(key);
-                    }
+                    keyValue = kvp.Key;
+                    tempDictionary.Add(keyValue, kvp.Value);
                 }
-
-                currentKeyNumber++;
+                else if (kvp.Key != key && keyFound == true)
+                {
+                    keyValue = kvp.Key;
+                    tempDictionary.Add(--keyValue, kvp.Value);
+                }
+                else
+                {
+                    keyFound = true;
+                }
             }
 
-            repo.Artifacts.Clear();
             repo.Artifacts = tempDictionary;
             JsonFileHandler.WriteToJson(filePath);
         }
